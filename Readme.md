@@ -1,4 +1,4 @@
-# JZaif
+# SugarZaif
 
 Java用のZaifAPIラッパーです。PublicAPI、ExchangeAPI、StreamingAPI用のラッパーがあります。
 対応する通貨ペアは BTC-JPY/MONA-JPY/BTC-MONA/XEM-JPYです。
