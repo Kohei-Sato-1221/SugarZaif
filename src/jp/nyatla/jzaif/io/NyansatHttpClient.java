@@ -53,8 +53,7 @@ public class NyansatHttpClient implements IHttpClient
 		String body=this._cl.postTextContents(i_url,"UTF-8",header,i_msg);
 		if(body==null){
 			System.err.printf("[HTTP error]\n%status=%d\n%s\n",
-				this._cl.getLastStatus(),
-				this._cl.getLastErrorBody());
+				this._cl.getLastStatus());
 		}
 		return body;
 	}

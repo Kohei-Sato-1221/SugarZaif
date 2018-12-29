@@ -29,6 +29,8 @@
 package jp.nyatla.jzaif.api;
 
 
+import java.math.BigDecimal;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
