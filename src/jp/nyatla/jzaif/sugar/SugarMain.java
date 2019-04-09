@@ -15,10 +15,16 @@ public class SugarMain {
 		System.out.println("TSUMITATE ORDERS! " + new Date());
 		
 		SugarBuyer sbuyer;
-		final String APIKEY = "";
-		final String SECKEY = "";
+		final String APIKEY = SugarKeyReader.getApiKey();
+		final String SECKEY = SugarKeyReader.getSecretKey(); 
+		// memo Zaifでは restapikey, apikeyが一緒になっている　→　一旦、seckeyはRestclientに引き渡す。
 		try {
-			sbuyer = new SugarBuyer(CurrencyPair.XEMJPY, new BigDecimal(10), new BigDecimal(150), new BigDecimal(250), 3, 3, APIKEY, SECKEY);
+			SugarOrderValues xemValues = SugarKeyReader.getCoinValue(CurrencyPair.XEMJPY);
+			if(xemValues != null) {
+				sbuyer = new SugarBuyer(CurrencyPair.XEMJPY, new BigDecimal(10), xemValues.getBaseAmountJPY(), xemValues.getBaseAmountJPYLow(), 3, 3, APIKEY, SECKEY);
+			}else {
+				sbuyer = new SugarBuyer(CurrencyPair.XEMJPY, new BigDecimal(10), new BigDecimal(150), new BigDecimal(250), 3, 3, APIKEY, SECKEY);
+			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -27,7 +33,7 @@ public class SugarMain {
 		
 		String NEWLINE = System.lineSeparator();
 		
-		RestClient.setRestApiKey(SugarKeyReader.getRestApiKey());
+		RestClient.setApiKey(SECKEY);
 		StringBuilder sb = new StringBuilder();
 		sb.append("Tsumitate Orders:");
 		sb.append(NEWLINE);

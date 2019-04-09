@@ -6,14 +6,14 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 public class RestClient {
-	private static String restApiKey = "";
+	private static String apiKey = "";
 	
 	/*　参考：http://www.techscore.com/blog/2016/09/20/jersey-client-api/　*/
 	public static String get(String subject, String content) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target("https://script.google.com")
 			    .path("/macros/s/AKfycbwPXXdYUU00dkylvvfOveP1RXHyuI78FNTdV_da0MWingkL_No/exec")
-			    .queryParam("key", restApiKey)
+			    .queryParam("key", apiKey)
 			    .queryParam("subject", subject)
 			    .queryParam("content", content);
 			 
@@ -29,7 +29,7 @@ public class RestClient {
 		return result;
 	}
 	
-	public static void setRestApiKey(String restApiKey) {
-		RestClient.restApiKey = restApiKey;
+	public static void setApiKey(String apiKey) {
+		RestClient.apiKey = apiKey;
 	}
 }
