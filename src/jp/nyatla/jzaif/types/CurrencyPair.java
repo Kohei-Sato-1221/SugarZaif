@@ -44,6 +44,8 @@ public enum CurrencyPair implements NamedEnum.Interface
 	XEMBTC(Currency.XEM,Currency.BTC){
 	},
 	MONABTC(Currency.MONA,Currency.BTC){		
+	},
+	ETHJPY(Currency.ETH,Currency.JPY){		
 	};
 
 	/** Zaifでの通貨ペア名を文字列で保持します。*/

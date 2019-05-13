@@ -36,7 +36,8 @@ public enum Currency implements NamedEnum.Interface
 	JPY("jpy",1),
 	BTC("btc",2),
 	MONA("mona",3),
-	XEM("xem",4);
+	XEM("xem",4),
+	ETH("eth",139);
 	/** Zaifでの通貨名を文字列で保持します。*/
 	final public String symbol;
 	final public int id;

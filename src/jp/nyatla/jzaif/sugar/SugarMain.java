@@ -14,16 +14,22 @@ public class SugarMain {
 	public static void main(String[] args){
 		System.out.println("TSUMITATE ORDERS! " + new Date());
 		
-		SugarBuyer sbuyer;
+		List<SugarBuyer> sbuyers = new ArrayList();
 		final String APIKEY = SugarKeyReader.getApiKey();
 		final String SECKEY = SugarKeyReader.getSecretKey(); 
 		// memo Zaifでは restapikey, apikeyが一緒になっている　→　一旦、seckeyはRestclientに引き渡す。
 		try {
 			SugarOrderValues xemValues = SugarKeyReader.getCoinValue(CurrencyPair.XEMJPY);
+			SugarOrderValues ethValues = SugarKeyReader.getCoinValue(CurrencyPair.ETHJPY);
 			if(xemValues != null) {
-				sbuyer = new SugarBuyer(CurrencyPair.XEMJPY, new BigDecimal(10), xemValues.getBaseAmountJPY(), xemValues.getBaseAmountJPYLow(), 3, 3, APIKEY, SECKEY);
+				sbuyers.add(new SugarBuyer(CurrencyPair.XEMJPY, new BigDecimal(10), xemValues.getBaseAmountJPY(), xemValues.getBaseAmountJPYLow(), 3, 1, APIKEY, SECKEY));
 			}else {
-				sbuyer = new SugarBuyer(CurrencyPair.XEMJPY, new BigDecimal(10), new BigDecimal(150), new BigDecimal(250), 3, 3, APIKEY, SECKEY);
+				sbuyers.add(new SugarBuyer(CurrencyPair.XEMJPY, new BigDecimal(10), new BigDecimal(150), new BigDecimal(250), 3, 1, APIKEY, SECKEY));
+			}
+			if(ethValues != null) {
+				sbuyers.add(new SugarBuyer(CurrencyPair.ETHJPY, new BigDecimal(10), ethValues.getBaseAmountJPY(), ethValues.getBaseAmountJPYLow(), -2, 4, APIKEY, SECKEY));
+			}else {
+				sbuyers.add(new SugarBuyer(CurrencyPair.ETHJPY, new BigDecimal(10), new BigDecimal(150), new BigDecimal(250), -2, 4, APIKEY, SECKEY));
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -37,24 +43,29 @@ public class SugarMain {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Tsumitate Orders:");
 		sb.append(NEWLINE);
-		try{
-			
-			sb.append(sbuyer.sendBuyOrder());
-			sb.append(NEWLINE);
-			Thread.sleep(1000);
-			sb.append(sbuyer.sendBuyOrderLower());
-			Thread.sleep(1000);
-			sb.append(NEWLINE);
-			sb.append(NEWLINE);
-			sb.append(sbuyer.getCurrentPrice());
-			RestClient.get("Orders in Zaif", sb.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+		for(SugarBuyer temp_buyer : sbuyers) {
+			try{
+				sb.append("【" + temp_buyer.getCurrentPair() + "】");
+				sb.append(NEWLINE);
+				sb.append(temp_buyer.sendBuyOrder());
+				sb.append(NEWLINE);
+				Thread.sleep(1000);
+				sb.append(temp_buyer.sendBuyOrderLower());
+				Thread.sleep(1000);
+				sb.append(NEWLINE);
+				sb.append(temp_buyer.getCurrentPrice());
+				sb.append(NEWLINE);
+				sb.append(NEWLINE);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
 		}
+		RestClient.get("Orders in Zaif", sb.toString());
+		System.out.println("#### END ####");
 	}
 	
 	private static boolean hasTradePair(String[] args, String pair) {

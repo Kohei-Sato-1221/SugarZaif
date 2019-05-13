@@ -34,7 +34,6 @@ public class SugarKeyReader {
 		keyMap = new HashMap<>();
 		BufferedReader br = null;
 		for(String path: keyFilePaths) {
-			System.out.println("## " + path);
 			try {
 				br = new BufferedReader(new FileReader(new File(path)));
 			} catch (FileNotFoundException e) {
@@ -49,7 +48,7 @@ public class SugarKeyReader {
 				String[] keyAndValue = line.split(",");
 				if(keyAndValue.length == 2) keyMap.put(keyAndValue[0], keyAndValue[1]);
 			});
-			br.close();
+			if(br != null) br.close();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {

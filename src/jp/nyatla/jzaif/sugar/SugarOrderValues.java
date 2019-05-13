@@ -19,6 +19,8 @@ public class SugarOrderValues {
 	private CurrencyPair convertPair(String pairStr) {
 		if(pairStr.equals("xem_jpy")) {
 			return CurrencyPair.XEMJPY;
+		}else if(pairStr.equals("eth_jpy")){
+			return CurrencyPair.ETHJPY;
 		}else {
 			return null;
 		}

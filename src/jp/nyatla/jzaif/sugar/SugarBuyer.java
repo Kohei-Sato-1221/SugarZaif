@@ -34,14 +34,14 @@ public class SugarBuyer {
 	
 	public String sendBuyOrder() throws IOException, NullPointerException{
 		BigDecimal buyPrice = calculateBuyPriceNormal();
-		BigDecimal buyVol = baseAmountJPY.divide(buyPrice, 0, BigDecimal.ROUND_HALF_UP);			
+		BigDecimal buyVol = baseAmountJPY.divide(buyPrice, roundAmt, BigDecimal.ROUND_HALF_UP);			
 		System.out.println(buyPrice + " " + buyVol);
 		ExchangeApi lp= new ExchangeApi(apiKey);
 		TradeResult r= lp.trade(pair,TradeType.BID, buyPrice.doubleValue(), buyVol.doubleValue());
 		if(r == null) {
 			System.out.println("Order result is Null! ");			
 		}else {
-			System.out.println("" + r);			
+			System.out.println("order success? - " + r.success + " error type:" + r.error_type + " error text:" + r.error_text);			
 			
 		}
 		System.out.println("# buyorder:" + pair + " price:" + buyPrice + " vol:" + buyVol);
@@ -50,14 +50,14 @@ public class SugarBuyer {
 
 	public String sendBuyOrderLower() throws IOException, NullPointerException{
 		BigDecimal buyPricelow = calculateBuyPriceLower();
-		BigDecimal buyVol = baseAmountJPYLow.divide(buyPricelow, 0, BigDecimal.ROUND_HALF_UP);	
+		BigDecimal buyVol = baseAmountJPYLow.divide(buyPricelow, roundAmt, BigDecimal.ROUND_HALF_UP);	
 		System.out.println(buyPricelow + " " + buyVol);
 		ExchangeApi lp= new ExchangeApi(apiKey);
 		TradeResult r= lp.trade(pair,TradeType.BID, buyPricelow.doubleValue(), buyVol.doubleValue());
 		if(r == null) {
 			System.out.println("Order result is Null! ");			
 		}else {
-			System.out.println("" + r);			
+			System.out.println("order success? - " + r.success + " error type:" + r.error_type + " error text:" + r.error_text);			
 			
 		}
 		System.out.println("# buyorderLow:" + pair + " price:" + buyPricelow + " vol:" + buyVol);
@@ -94,6 +94,10 @@ public class SugarBuyer {
 	    retValue = retValue.setScale(roundPrice, BigDecimal.ROUND_HALF_UP);
 	    System.out.println("calculateBuyPrice: " + retValue);
 	    return retValue;
+	}
+	
+	public String getCurrentPair() throws IOException {
+		return this.pair.toString(); 
 	}
 	
 	public String getCurrentPrice() throws IOException {
