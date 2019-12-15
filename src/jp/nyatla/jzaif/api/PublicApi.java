@@ -34,7 +34,6 @@ import java.math.BigDecimal;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 import jp.nyatla.jzaif.api.result.DepthResult;
 import jp.nyatla.jzaif.api.result.TickerResult;
 import jp.nyatla.jzaif.api.result.TradesResult;
@@ -49,25 +48,23 @@ public class PublicApi
 {
 	final private static String API_URL_PREFIX="https://api.zaif.jp/api/1/";
 	final private CurrencyPair _cu_pair;
-	final private IHttpClient _cl=new NyansatHttpClient();
+	final private IHttpClient _cl = new NyansatHttpClient();
 	/**
 	 * コンストラクタ。
 	 * @param i_pair
 	 * 通貨ペアを指定します。
 	 */
-	public PublicApi(CurrencyPair i_pair)
-	{
-		this._cu_pair=i_pair;
+	public PublicApi(CurrencyPair i_pair){
+		this._cu_pair = i_pair;
 	}
 	/**
 	 * depth APIを実行して結果を得ます。
 	 * @return
 	 * 結果を格納した{@link DeapthResult}オブジェクト
 	 */
-	public DepthResult depth()
-	{
-		String json_str=this._cl.getText(API_URL_PREFIX+"depth/"+this._cu_pair.symbol);		
-		JSONObject jso=new JSONObject(json_str);
+	public DepthResult depth(){
+		String json_str = this._cl.getText(API_URL_PREFIX+"depth/"+this._cu_pair.symbol);		
+		JSONObject jso = new JSONObject(json_str);
 		return new DepthResult(jso);
 	}
 	/**
@@ -75,10 +72,9 @@ public class PublicApi
 	 * @return
 	 * 結果を格納した{@link TickerResult}オブジェクト
 	 */
-	public TickerResult ticker()
-	{
-		String json_str=this._cl.getText(API_URL_PREFIX+"ticker/"+this._cu_pair.symbol);	
-		JSONObject jso=new JSONObject(json_str);
+	public TickerResult ticker(){
+		String json_str = this._cl.getText(API_URL_PREFIX+"ticker/"+this._cu_pair.symbol);	
+		JSONObject jso =new JSONObject(json_str);
 		return new TickerResult(jso);
 	}
 	/**
@@ -86,11 +82,10 @@ public class PublicApi
 	 * @return
 	 * 結果を格納した{@link TradesResult}オブジェクト
 	 */	
-	public TradesResult trades()
-	{
-		String json_str=this._cl.getText(API_URL_PREFIX+"trades/"+this._cu_pair.symbol);		
-		JSONArray jso=new JSONArray(json_str);
-		TradesResult r=new TradesResult(jso);
+	public TradesResult trades(){
+		String json_str = this._cl.getText(API_URL_PREFIX+"trades/"+this._cu_pair.symbol);		
+		JSONArray jso = new JSONArray(json_str);
+		TradesResult r = new TradesResult(jso);
 		return r;
 	}
 	/**
@@ -98,10 +93,9 @@ public class PublicApi
 	 * @return
 	 * lastpriceの値。
 	 */	
-	public double lastPrice()
-	{
-		String json_str=this._cl.getText(API_URL_PREFIX+"last_price/"+this._cu_pair.symbol);		
-		JSONObject jso=new JSONObject(json_str);
+	public double lastPrice(){
+		String json_str = this._cl.getText(API_URL_PREFIX+"last_price/"+this._cu_pair.symbol);		
+		JSONObject jso = new JSONObject(json_str);
 		return jso.getDouble("last_price");
 	}	
 }

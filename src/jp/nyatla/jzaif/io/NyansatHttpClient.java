@@ -29,6 +29,8 @@
 package jp.nyatla.jzaif.io;
 
 
+import java.io.IOException;
+
 import jp.nyatla.nyansat.client.BasicHttpClient;
 
 /**
@@ -44,14 +46,26 @@ public class NyansatHttpClient implements IHttpClient
 	@Override
 	public String getText(String i_url)
 	{
-		return this._cl.getTextContents(i_url);
+		try {
+			return this._cl.getTextContents(i_url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	@Override
 	public String postText(String i_url,String i_key,String i_sign,String i_msg)
 	{
 		String[][] header={{"Key",i_key},{"Sign",i_sign}};
-		String body=this._cl.postTextContents(i_url,"UTF-8",header,i_msg);
-		if(body==null){
+		String body = null;
+		try {
+			body = this._cl.postTextContents(i_url,"UTF-8",header,i_msg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(body == null){
 			System.err.printf("[HTTP error]\n%status=%d\n%s\n",
 				this._cl.getLastStatus());
 		}
