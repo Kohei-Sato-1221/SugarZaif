@@ -36,12 +36,14 @@ import jp.nyatla.jzaif.types.CurrencyPair;
 /**
  * StreamingAPIからの出力をそのまま一行単位で標準出力に書き出すプログラムです。
  */
+/*
 public class StreamingRecv {
 	static public class Sa extends StreamingApi
 	{
 		public Sa(CurrencyPair i_cpair) {
 			super(i_cpair);
 		}
+		
 		@Override
 		public void onUpdate(String i_data)
 		{
@@ -65,3 +67,4 @@ public class StreamingRecv {
 		return;
 	}
 }
+ */

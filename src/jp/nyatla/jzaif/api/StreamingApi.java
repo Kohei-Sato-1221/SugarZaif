@@ -33,7 +33,7 @@ import org.json.JSONObject;
 import jp.nyatla.jzaif.api.result.StreamingNotify;
 import jp.nyatla.jzaif.io.IWebsocketClient;
 import jp.nyatla.jzaif.io.IWebsocketObserver;
-import jp.nyatla.jzaif.io.JsrWebsocketClient;
+//import jp.nyatla.jzaif.io.JsrWebsocketClient;
 import jp.nyatla.jzaif.types.CurrencyPair;
 
 /**
@@ -62,10 +62,12 @@ public class StreamingApi
 	 * @param i_cpair
 	 * 通貨ペアの種類。
 	 */
+	/*
 	public StreamingApi(CurrencyPair i_cpair)
 	{
 		this(new JsrWebsocketClient(),i_cpair);
 	}
+	*/
 	/**
 	 * インスタンスをシャットダウンします。
 	 * 関数終了後に、非同期イベントが停止しします。
